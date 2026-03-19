@@ -494,6 +494,56 @@ textarea::placeholder { color: var(--text-muted); }
 
 .status-text { font-size: 14px; font-weight: 700; color: var(--text-primary); }
 
+/* ── Content Card ── */
+.content-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  padding: 22px 24px;
+  box-shadow: var(--shadow);
+  transition: background-color 0.25s, border-color 0.25s;
+}
+
+.seo-content h2 {
+  font-size: 20px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin-bottom: 12px;
+  color: var(--text-primary);
+}
+
+.seo-content p {
+  font-size: 14px;
+  line-height: 1.8;
+  color: var(--text-secondary);
+}
+
+.seo-content p + p {
+  margin-top: 10px;
+}
+
+.seo-content ul {
+  margin-top: 14px;
+  padding-left: 20px;
+  color: var(--text-secondary);
+  display: grid;
+  gap: 8px;
+}
+
+.seo-content li {
+  line-height: 1.7;
+}
+
+.seo-content code {
+  font-family: "JetBrains Mono", "Consolas", monospace;
+  font-size: 0.95em;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 2px 6px;
+  color: var(--accent);
+}
+
 /* ── Scrollbar ── */
 textarea::-webkit-scrollbar { width: 6px; }
 textarea::-webkit-scrollbar-track { background: transparent; }
@@ -508,6 +558,7 @@ textarea::-webkit-scrollbar-thumb:hover { background: var(--scrollbar-h); }
 @media (max-width: 640px) {
   body { padding: 16px 14px; }
   .stats-panel { grid-template-columns: 1fr 1fr; gap: 10px; padding: 14px; }
+  .content-card { padding: 16px; }
   textarea { min-height: 300px; font-size: 15px; }
   .toolbar { gap: 6px; }
   .btn { font-size: 12px; padding: 7px 11px; }
