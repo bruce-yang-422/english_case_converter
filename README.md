@@ -2,10 +2,13 @@
 
 這是一個可直接在瀏覽器使用的前端小工具，用來處理英文大小寫轉換、命名格式轉換，以及字元統計與上限判定。
 
+- [線上使用](https://bruce-yang-422.github.io/english_case_converter/)
+- [GitHub 倉庫](https://github.com/bruce-yang-422/english_case_converter)
+
 ## 專案網址
 
-- GitHub 倉庫：`https://github.com/bruce-yang-422/english_case_converter`
-- GitHub Pages（啟用後）：`https://bruce-yang-422.github.io/english_case_converter/`
+- GitHub 倉庫：[https://github.com/bruce-yang-422/english_case_converter](https://github.com/bruce-yang-422/english_case_converter)
+- GitHub Pages：[https://bruce-yang-422.github.io/english_case_converter/](https://bruce-yang-422.github.io/english_case_converter/)
 
 ## 功能特色
 
