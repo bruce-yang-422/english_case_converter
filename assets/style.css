@@ -610,7 +610,7 @@ body::after {
 /* Responsive */
 
 
-@media (max-width: 860px) {
+@media (max-width: 1100px) {
   .workspace {
     display: block;
     padding: 14px;
@@ -645,7 +645,7 @@ body::after {
     margin-top: 14px;
   }
 }
-@media (max-width: 600px) {
+@media (max-width: 720px) {
   .header-inner {
     flex-direction: column;
     gap: 16px;
@@ -731,3 +731,4 @@ body::after {
     margin-left: 0;
   }
 }
+
