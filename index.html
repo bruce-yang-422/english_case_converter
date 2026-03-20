@@ -7,28 +7,28 @@
   <meta name="description" content="線上英文命名與大小寫轉換工具，支援轉大寫、轉小寫、首字母大寫、名稱格式、snake_case，並提供全形半形、加權字元與上限判定。">
   <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
   <meta name="author" content="Bruce Yang">
-  <meta name="theme-color" content="#0e8c7c">
-  <link rel="canonical" href="https://bruce-yang-422.github.io/english_case_converter/">
-  <link rel="alternate" hreflang="zh-Hant" href="https://bruce-yang-422.github.io/english_case_converter/">
+  <meta name="theme-color" content="#00d2aa">
+  <link rel="canonical" href="https://tool-a01.stack-base.com/">
+  <link rel="alternate" hreflang="zh-Hant" href="https://tool-a01.stack-base.com/">
   <meta property="og:locale" content="zh_TW">
   <meta property="og:type" content="website">
   <meta property="og:title" content="英文命名與大小寫轉換工具">
   <meta property="og:description" content="支援英文大小寫轉換、人名格式、snake_case、全形半形統計與字元上限判定的線上工具。">
-  <meta property="og:url" content="https://bruce-yang-422.github.io/english_case_converter/">
+  <meta property="og:url" content="https://tool-a01.stack-base.com/">
   <meta property="og:site_name" content="英文命名與大小寫轉換工具">
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="英文命名與大小寫轉換工具">
   <meta name="twitter:description" content="支援大小寫、人名格式、snake_case 與字元統計的線上英文轉換工具。">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@400;600;700;800&family=JetBrains+Mono:wght@400;600;700&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "WebApplication",
       "name": "英文命名與大小寫轉換工具",
-      "url": "https://bruce-yang-422.github.io/english_case_converter/",
+      "url": "https://tool-a01.stack-base.com/",
       "applicationCategory": "DeveloperApplication",
       "operatingSystem": "Any",
       "inLanguage": "zh-Hant",
@@ -44,18 +44,18 @@
   <!-- 防閃爍：同步載入，不加 defer / async -->
   <script src="theme-init.js"></script>
 </head>
-<body>
-  <main class="shell">
 
-    <!-- Header -->
-    <header class="header">
+<body>
+<div class="root">
+
+  <!-- ═══ HEADER ═══ -->
+  <header class="site-header">
+    <div class="header-inner">
       <div class="header-left">
         <div class="badge">English Naming Toolkit</div>
-        <h1 class="title">英文命名與大小寫轉換工具</h1>
-        <p class="subtitle">一頁完成英文大小寫、人名格式、程式命名格式轉換，並同步查看字元、全半形與上限判定。</p>
+        <h1 class="page-title">英文命名與大小寫轉換工具</h1>
+        <p class="page-subtitle">一頁完成英文大小寫、人名格式、程式命名格式轉換，並同步查看字元、全半形與上限判定。</p>
       </div>
-
-      <!-- Theme Switcher -->
       <div class="theme-switcher" role="group" aria-label="主題選擇">
         <button class="theme-btn" data-theme-val="system" title="跟隨系統" aria-pressed="false">
           <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
@@ -78,100 +78,144 @@
           <span>深色</span>
         </button>
       </div>
-    </header>
+    </div>
+  </header>
 
-    <!-- Editor Card -->
-    <section class="editor-card">
+  <!-- ═══ WORKSPACE ═══ -->
+  <div class="workspace">
 
-      <!-- Toolbar -->
-      <div class="toolbar">
-        <button class="btn btn-upper" type="button" data-action="upper">
-          <span class="btn-icon">▲</span>轉大寫
-        </button>
-        <button class="btn btn-lower" type="button" data-action="lower">
-          <span class="btn-icon">▼</span>轉小寫
-        </button>
-        <button class="btn btn-title" type="button" data-action="title">
-          <span class="btn-icon">Aa</span>首字母大寫
-        </button>
-        <button class="btn btn-name" type="button" data-action="name">
-          <span class="btn-icon">✦</span>名稱格式
-        </button>
-        <button class="btn btn-snake" type="button" data-action="snake">
-          <span class="btn-icon">_</span>snake_case
-        </button>
+    <!-- LEFT: Editor -->
+    <div class="editor-col">
+
+      <!-- 工具列（chips）獨立在 editor-wrap 外 -->
+      <div class="toolbar" id="toolbar">
+        <button class="chip chip-a" type="button" data-action="upper">▲ 轉大寫</button>
+        <button class="chip chip-b" type="button" data-action="lower">▼ 轉小寫</button>
+        <button class="chip chip-c" type="button" data-action="title">Aa 首字母大寫</button>
+        <button class="chip chip-d" type="button" data-action="name">✦ 名稱格式</button>
+        <button class="chip chip-e" type="button" data-action="snake">_ snake_case</button>
       </div>
 
-      <!-- Textarea -->
-      <div class="textarea-wrap">
-        <textarea id="textInput" placeholder="請輸入英文內容..."></textarea>
-      </div>
+      <div class="editor-wrap">
 
-      <!-- Footer Bar -->
-      <div class="footer-bar">
-        <div class="action-group">
-          <button class="btn btn-ghost" type="button" id="clearBtn">
-            <span class="btn-icon">✕</span>清除
-          </button>
-          <button class="btn btn-ghost" type="button" id="copyBtn">
-            <span class="btn-icon">⎘</span>複製
+        <!-- macOS dots + 可編輯檔名 + 下載 -->
+        <div class="editor-topbar">
+          <span class="dot dot-r"></span>
+          <span class="dot dot-y"></span>
+          <span class="dot dot-g"></span>
+          <input class="editor-fname" id="fileNameInput" type="text" value="untitled" spellcheck="false" aria-label="檔案名稱">
+          <span class="fname-ext">.txt</span>
+          <button class="download-btn" id="downloadBtn" title="下載 .txt">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M8 2v8M5 7l3 3 3-3"/>
+              <path d="M2 12h12"/>
+            </svg>
+            下載
           </button>
         </div>
-        <div class="limit-group">
-          <label class="limit-label" for="limitInput">字元上限</label>
-          <input id="limitInput" class="limit-input" type="number" min="0" step="1" placeholder="如 30">
-        </div>
-      </div>
-    </section>
 
-    <!-- Stats Panel -->
-    <section class="stats-panel" aria-live="polite">
+        <textarea id="textInput" placeholder="// 貼上或輸入英文內容..."></textarea>
 
-      <div class="stat-group">
-        <div class="stat-group__label">基本統計</div>
-        <div class="stat-items">
-          <div class="stat-row"><span class="stat-name">總字元</span><span class="stat-value" id="charCount">0</span></div>
-          <div class="stat-row"><span class="stat-name">非空白</span><span class="stat-value" id="nonWhitespaceCount">0</span></div>
-          <div class="stat-row"><span class="stat-name">英文單字</span><span class="stat-value" id="wordCount">0</span></div>
-          <div class="stat-row"><span class="stat-name">行數</span><span class="stat-value" id="lineCount">1</span></div>
+        <div class="editor-footer">
+          <button class="act-btn" id="clearBtn">✕ 清除</button>
+          <button class="act-btn" id="copyBtn">⎘ 複製</button>
         </div>
       </div>
 
-      <div class="stat-group">
-        <div class="stat-group__label">字寬統計</div>
-        <div class="stat-items">
-          <div class="stat-row"><span class="stat-name">半形</span><span class="stat-value" id="halfWidthCount">0</span></div>
-          <div class="stat-row"><span class="stat-name">全形</span><span class="stat-value" id="fullWidthCount">0</span></div>
-          <div class="stat-row weighted-row"><span class="stat-name">加權字元</span><span class="stat-value" id="weightedCount">0</span></div>
+    </div>
+
+    <!-- RIGHT: Stats -->
+    <aside class="stats-col" aria-live="polite">
+
+      <div class="panel-section">
+        <div class="panel-header">基本統計</div>
+        <div class="stat-rows">
+          <div class="srow">
+            <span class="srow-name">總字元</span>
+            <span class="srow-val accent" id="charCount">0</span>
+          </div>
+          <div class="srow">
+            <span class="srow-name">非空白</span>
+            <span class="srow-val" id="nonWhitespaceCount">0</span>
+          </div>
+          <div class="srow">
+            <span class="srow-name">英文單字</span>
+            <span class="srow-val" id="wordCount">0</span>
+          </div>
+          <div class="srow">
+            <span class="srow-name">行數</span>
+            <span class="srow-val" id="lineCount">1</span>
+          </div>
         </div>
       </div>
 
-      <div class="stat-group stat-group--limit">
-        <div class="stat-group__label">上限判定</div>
-        <div class="limit-display" id="limitDisplay">—</div>
-        <div class="limit-sublabel" id="limitStatus">未設定上限</div>
+      <div class="panel-section">
+        <div class="panel-header">字寬統計</div>
+        <div class="stat-rows">
+          <div class="srow">
+            <span class="srow-name">半形字元</span>
+            <span class="srow-val" id="halfWidthCount">0</span>
+          </div>
+          <div class="srow">
+            <span class="srow-name">全形字元</span>
+            <span class="srow-val" id="fullWidthCount">0</span>
+          </div>
+          <div class="srow">
+            <span class="srow-name">加權字元</span>
+            <span class="srow-val" id="weightedCount">0</span>
+          </div>
+        </div>
       </div>
 
-      <div class="stat-group stat-group--state">
-        <div class="stat-group__label">狀態</div>
-        <div class="status-icon" id="statusIcon">🟢</div>
-        <div class="status-text" id="statusText">就緒</div>
+      <div class="panel-section">
+        <div class="panel-header">上限判定</div>
+        <div class="limit-big-wrap">
+          <div class="limit-big" id="limitDisplay">—</div>
+          <div class="limit-sub" id="limitStatus">未設定上限</div>
+        </div>
+        <div class="limit-input-row">
+          <input id="limitInput" type="number" min="0" step="1" placeholder="輸入加權字元上限，如 30">
+        </div>
       </div>
 
-    </section>
+      <div class="panel-section">
+        <div class="panel-header">操作狀態</div>
+        <div class="status-body">
+          <div class="status-icon" id="statusIcon">🟢</div>
+          <div class="status-info">
+            <div class="status-text" id="statusText">就緒</div>
+            <div class="status-hint">等待輸入...</div>
+          </div>
+        </div>
+      </div>
 
-    <section class="content-card seo-content" aria-labelledby="seo-content-title">
-      <h2 id="seo-content-title">工具說明</h2>
-      <p>這個頁面提供常見的英文文字格式轉換功能，適合用在變數命名、欄位命名、人名整理與日常英文文字調整。你可以快速把輸入內容轉成大寫、小寫、首字母大寫、名稱格式，或轉換成適合程式命名使用的 <code>snake_case</code>。</p>
-      <p>除了格式轉換外，頁面也會同步顯示總字元、英文單字、行數、全形與半形字元，以及加權字元數，方便處理有長度限制的欄位內容。若你有特定字數限制，也可以直接輸入上限，系統會即時顯示剩餘或超過的字元數。</p>
-      <ul>
-        <li>適合整理英文標題、姓名、程式命名格式</li>
-        <li>適合檢查全形半形與字元限制</li>
-        <li>可直接在瀏覽器使用，不需安裝</li>
-      </ul>
-    </section>
-  </main>
+    </aside>
+  </div>
 
-  <script src="app.js" defer></script>
+  <!-- SEO Content（可收合，瀏覽器記憶狀態） -->
+  <section class="seo-section" aria-labelledby="seo-title">
+    <button class="seo-toggle" id="seoToggle" aria-expanded="true">
+      <svg class="seo-chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M4 6l4 4 4-4"/>
+      </svg>
+      <span id="seo-title">工具說明</span>
+      <span class="seo-toggle-hint" id="seoHint">點擊收合</span>
+    </button>
+    <div class="seo-body" id="seoBody">
+      <div class="seo-inner">
+        <ul>
+          <li><strong>▲ 轉大寫</strong> — 將所有英文字母轉為大寫，適合常數命名或強調用途。</li>
+          <li><strong>▼ 轉小寫</strong> — 將所有英文字母轉為小寫，常用於統一格式或 URL slug。</li>
+          <li><strong>Aa 首字母大寫</strong> — 每個單字的首字母大寫，適合英文標題或欄位名稱。</li>
+          <li><strong>✦ 名稱格式</strong> — 每個單字首字母大寫，同時保留分隔符號（如空白、底線、點號），適合人名或顯示名稱。</li>
+          <li><strong>_ snake_case</strong> — 移除特殊字元並以底線連接，轉為全小寫，適合程式變數或資料庫欄位命名。</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<script src="app.js" defer></script>
 </body>
 </html>

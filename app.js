@@ -1,16 +1,15 @@
 /* ─── Theme ─── */
-const THEME_KEY = "theme";
-const htmlEl    = document.documentElement;
+const html      = document.documentElement;
 const themeBtns = document.querySelectorAll(".theme-btn");
 
 function applyTheme(val) {
-  // val: "system" | "light" | "dark"
   if (val === "system") {
-    htmlEl.removeAttribute("data-theme");
-    localStorage.removeItem(THEME_KEY);
+    const isDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    html.setAttribute("data-mode", isDark ? "dark" : "light");
+    localStorage.removeItem("ct");
   } else {
-    htmlEl.setAttribute("data-theme", val);
-    localStorage.setItem(THEME_KEY, val);
+    html.setAttribute("data-mode", val);
+    localStorage.setItem("ct", val);
   }
   themeBtns.forEach(btn => {
     const active = btn.dataset.themeVal === val;
@@ -20,14 +19,11 @@ function applyTheme(val) {
 }
 
 function getInitialTheme() {
-  const saved = localStorage.getItem(THEME_KEY);
-  return (saved === "light" || saved === "dark") ? saved : "system";
+  const s = localStorage.getItem("ct");
+  return (s === "light" || s === "dark") ? s : "system";
 }
 
-themeBtns.forEach(btn => {
-  btn.addEventListener("click", () => applyTheme(btn.dataset.themeVal));
-});
-
+themeBtns.forEach(btn => btn.addEventListener("click", () => applyTheme(btn.dataset.themeVal)));
 applyTheme(getInitialTheme());
 
 /* ─── App ─── */
@@ -43,10 +39,18 @@ const limitInput         = document.getElementById("limitInput");
 const limitDisplay       = document.getElementById("limitDisplay");
 const limitStatus        = document.getElementById("limitStatus");
 const statusText         = document.getElementById("statusText");
+const statusHint         = document.querySelector(".status-hint");
 const statusIcon         = document.getElementById("statusIcon");
 const clearBtn           = document.getElementById("clearBtn");
 const copyBtn            = document.getElementById("copyBtn");
-const toolbar            = document.querySelector(".toolbar");
+const toolbar            = document.getElementById("toolbar");
+const fileNameInput      = document.getElementById("fileNameInput");
+const downloadBtn        = document.getElementById("downloadBtn");
+const seoSection         = document.querySelector(".seo-section");
+const seoBody            = document.getElementById("seoBody");
+const seoToggle          = document.getElementById("seoToggle");
+const seoHint            = document.getElementById("seoHint");
+
 
 function isFullWidthChar(char) {
   const cp = char.codePointAt(0);
@@ -59,80 +63,85 @@ function isFullWidthChar(char) {
   );
 }
 
+function flash(el) {
+  el.classList.remove("flash");
+  void el.offsetWidth;
+  el.classList.add("flash");
+}
+
 function updateStats() {
   const text  = textInput.value;
   const chars = Array.from(text);
   const words = text.match(/[A-Za-z0-9]+/g) || [];
   const lines = text === "" ? 1 : text.split(/\r\n|\r|\n/).length;
 
-  let fullWidth = 0, halfWidth = 0, weighted = 0;
+  let fw = 0, hw = 0, wt = 0;
   chars.forEach(c => {
-    if (isFullWidthChar(c)) { fullWidth++; weighted += 2; }
-    else                    { halfWidth++; weighted += 1; }
+    if (isFullWidthChar(c)) { fw++; wt += 2; } else { hw++; wt += 1; }
   });
 
-  charCount.textContent          = chars.length;
-  nonWhitespaceCount.textContent = chars.filter(c => !/\s/.test(c)).length;
-  wordCount.textContent          = words.length;
-  lineCount.textContent          = lines;
-  halfWidthCount.textContent     = halfWidth;
-  fullWidthCount.textContent     = fullWidth;
-  weightedCount.textContent      = weighted;
+  const set = (el, val) => {
+    const s = String(val);
+    if (el.textContent !== s) { el.textContent = s; flash(el); }
+  };
 
-  const wEl        = document.querySelector(".weighted-row .stat-value");
+  set(charCount,          chars.length);
+  set(nonWhitespaceCount, chars.filter(c => !/\s/.test(c)).length);
+  set(wordCount,          words.length);
+  set(lineCount,          lines);
+  set(halfWidthCount,     hw);
+  set(fullWidthCount,     fw);
+  set(weightedCount,      wt);
+
   const limitValue = Number(limitInput.value);
   const hasLimit   = limitInput.value !== "" && Number.isFinite(limitValue) && limitValue >= 0;
-  const isOver     = hasLimit && weighted > limitValue;
+  const isOver     = hasLimit && wt > limitValue;
 
-  wEl.classList.toggle("is-over", isOver);
-  limitDisplay.classList.toggle("is-over", isOver);
+  weightedCount.classList.toggle("over", isOver);
+  limitDisplay.classList.toggle("over",  isOver);
 
   if (!hasLimit) {
     limitDisplay.textContent = "—";
     limitStatus.textContent  = "未設定上限";
   } else if (isOver) {
-    limitDisplay.textContent = `+${weighted - limitValue}`;
-    limitStatus.textContent  = `超過 ${weighted - limitValue} 個加權字元`;
+    limitDisplay.textContent = `+${wt - limitValue}`;
+    limitStatus.textContent  = `超出 ${wt - limitValue} 個加權字元`;
   } else {
-    limitDisplay.textContent = `${limitValue - weighted}`;
-    limitStatus.textContent  = `剩餘 ${limitValue - weighted} 個加權字元`;
+    limitDisplay.textContent = `${limitValue - wt}`;
+    limitStatus.textContent  = `剩餘 ${limitValue - wt} 個加權字元`;
   }
 }
 
 const statusMap = {
-  ready: { icon: "🟢", text: "就緒" },
-  edit:  { icon: "✏️",  text: "編輯中" },
-  upper: { icon: "▲",  text: "已轉為大寫" },
-  lower: { icon: "▼",  text: "已轉為小寫" },
-  title: { icon: "Aa", text: "已轉為首字母大寫" },
-  name:  { icon: "✦",  text: "已轉為名稱格式" },
-  snake: { icon: "_",  text: "已轉為 snake_case" },
-  clear: { icon: "✕",  text: "內容已清除" },
-  copy:  { icon: "✓",  text: "已複製到剪貼簿" },
-  limit: { icon: "🔢", text: "已更新上限" },
+  ready: { icon: "🟢", text: "就緒",       hint: "等待輸入..." },
+  edit:  { icon: "✏️",  text: "編輯中",     hint: "正在輸入..." },
+  upper: { icon: "▲",  text: "已轉為大寫", hint: "UPPERCASE applied" },
+  lower: { icon: "▼",  text: "已轉為小寫", hint: "lowercase applied" },
+  title: { icon: "Aa", text: "首字母大寫", hint: "Title Case applied" },
+  name:  { icon: "✦",  text: "名稱格式",   hint: "Name Case applied" },
+  snake: { icon: "_",  text: "snake_case", hint: "snake_case applied" },
+  clear: { icon: "✕",  text: "已清除",     hint: "內容已清空" },
+  copy:  { icon: "✓",  text: "已複製",     hint: "複製到剪貼簿" },
+  limit: { icon: "🔢", text: "已設上限",   hint: "即時判定中..." },
 };
 
 function setStatus(key) {
-  const s = statusMap[key] || { icon: "·", text: key };
+  const s = statusMap[key] || { icon: "·", text: key, hint: "" };
   statusIcon.textContent = s.icon;
   statusText.textContent = s.text;
+  if (statusHint) statusHint.textContent = s.hint;
 }
 
 function toTitleCase(t) { return t.toLowerCase().replace(/\b([a-z])/g, m => m.toUpperCase()); }
-
 function toSnakeCase(t) {
   return t
     .replace(/([a-z0-9])([A-Z])/g, "$1_$2")
     .replace(/([A-Z]+)([A-Z][a-z])/g, "$1_$2")
     .replace(/[^a-zA-Z0-9]+/g, "_")
-    .replace(/^_+|_+$/g, "")
-    .replace(/_+/g, "_")
-    .toLowerCase();
+    .replace(/^_+|_+$/g, "").replace(/_+/g, "_").toLowerCase();
 }
-
 function toNameCase(t) {
-  return t.toLowerCase()
-    .replace(/(^|[\s._-]+)([a-z])/g, (m, pre, l) => pre + l.toUpperCase());
+  return t.toLowerCase().replace(/(^|[\s._-]+)([a-z])/g, (_, p, l) => p + l.toUpperCase());
 }
 
 function applyTransform(type) {
@@ -143,12 +152,7 @@ function applyTransform(type) {
     name:  () => toNameCase(textInput.value),
     snake: () => toSnakeCase(textInput.value),
   };
-  if (map[type]) {
-    textInput.value = map[type]();
-    setStatus(type);
-    updateStats();
-    textInput.focus();
-  }
+  if (map[type]) { textInput.value = map[type](); setStatus(type); updateStats(); textInput.focus(); }
 }
 
 toolbar.addEventListener("click", e => {
@@ -157,19 +161,42 @@ toolbar.addEventListener("click", e => {
 });
 
 clearBtn.addEventListener("click", () => {
-  textInput.value = "";
-  updateStats();
-  setStatus("clear");
-  textInput.focus();
+  textInput.value = ""; updateStats(); setStatus("clear"); textInput.focus();
 });
 
 copyBtn.addEventListener("click", async () => {
-  try { await navigator.clipboard.writeText(textInput.value); }
-  catch { textInput.select(); document.execCommand("copy"); }
+  await navigator.clipboard.writeText(textInput.value);
   setStatus("copy");
 });
 
 textInput.addEventListener("input", () => { updateStats(); setStatus("edit"); });
 limitInput.addEventListener("input", () => { updateStats(); setStatus("limit"); });
+
+/* ─── Download ─── */
+downloadBtn.addEventListener("click", () => {
+  const name = (fileNameInput.value.trim() || "untitled") + ".txt";
+  const blob = new Blob([textInput.value], { type: "text/plain" });
+  const url  = URL.createObjectURL(blob);
+  const a    = document.createElement("a");
+  a.href = url; a.download = name; a.click();
+  URL.revokeObjectURL(url);
+  setStatus("copy");
+});
+
+/* ─── SEO Toggle（首次展開，之後記憶狀態） ─── */
+const SEO_KEY = "seo-open";
+
+function setSeoOpen(open) {
+  seoSection.classList.toggle("collapsed", !open);
+  seoToggle.setAttribute("aria-expanded", open);
+  seoHint.textContent = open ? "點擊收合" : "點擊展開";
+  localStorage.setItem(SEO_KEY, open ? "1" : "0");
+}
+
+setSeoOpen(localStorage.getItem(SEO_KEY) !== "0");
+
+seoToggle.addEventListener("click", () => {
+  setSeoOpen(seoSection.classList.contains("collapsed"));
+});
 
 updateStats();

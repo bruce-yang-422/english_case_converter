@@ -1,85 +1,49 @@
 # 英文命名與大小寫轉換工具
 
-[![GitHub Repo](https://img.shields.io/badge/GitHub-bruce--yang--422%2Fenglish__case__converter-181717?logo=github)](https://github.com/bruce-yang-422/english_case_converter)
-[![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Online-0f766e?logo=githubpages)](https://bruce-yang-422.github.io/english_case_converter/)
-[![Static Site](https://img.shields.io/badge/Static%20Site-HTML%2FCSS%2FJS-2563eb)](https://bruce-yang-422.github.io/english_case_converter/)
-[![Theme](https://img.shields.io/badge/Theme-Light%20%2F%20Dark%20%2F%20System-7c3aed)](https://bruce-yang-422.github.io/english_case_converter/)
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-tool--a01.stack--base.com-00d2aa?logo=cloudflare&logoColor=white)](https://tool-a01.stack-base.com/)
+[![GitHub Last Commit](https://img.shields.io/github/last-commit/bruce-yang-422/english_case_converter)](https://github.com/bruce-yang-422/english_case_converter/commits/main)
+[![Repo Size](https://img.shields.io/github/repo-size/bruce-yang-422/english_case_converter)](https://github.com/bruce-yang-422/english_case_converter)
+[![License](https://img.shields.io/badge/License-MIT-yellow)](LICENSE)
 
-一個可直接在瀏覽器使用的英文文字工具，整合大小寫轉換、英文命名格式轉換、字元統計與上限判定，適合用在程式命名、人名整理、欄位命名與一般英文文字調整。
+瀏覽器直用的英文文字轉換工具，整合命名格式轉換、字元統計與上限判定，適合開發者處理變數命名、欄位整理或有長度限制的英文欄位，無需安裝即可使用。
 
-## 線上使用
+## 功能
 
-- 線上工具：<https://bruce-yang-422.github.io/english_case_converter/>
-- GitHub 倉庫：<https://github.com/bruce-yang-422/english_case_converter>
+### 格式轉換
 
-## 主要功能
+- 全大寫 / 全小寫
+- 首字母大寫（Title Case）
+- 名稱格式（保留分隔符號：`hello_world` → `Hello_World`）
+- snake_case
 
-### 文字格式轉換
+### 字元統計
 
-- 轉大寫
-- 轉小寫
-- 首字母大寫
-- 名稱格式轉換
-- 轉為 `snake_case`
+- 總字元、非空白字元、英文單字數、行數
+- 半形 / 全形字元個別計算
+- 加權字元數（全形 × 2）並支援自訂上限即時判定
 
-### 統計與限制判定
+### 編輯器
 
-- 顯示總字元、非空白、英文單字、行數
-- 統計全形與半形字元
-- 計算加權字元數
-- 可設定自訂字元上限
-- 超過上限時提供即時提示
+- 可自訂檔名，一鍵下載為 `.txt`
+- 清除與複製內容
 
-### 介面體驗
+### 介面設計
 
-- 支援跟隨系統、淺色、深色主題
-- 純前端靜態頁面
-- 不需安裝即可直接使用
+- 系統 / 淺色 / 深色主題切換，防閃爍初始化
+- 工具說明可收合，狀態透過 `localStorage` 記憶
+- macOS 風格 UI 設計
 
-## 適合用途
+## 技術
 
-- 英文變數命名整理
-- 欄位命名與資料清洗
-- 人名或專有名詞格式整理
-- 檢查字元限制與全形半形差異
+純 HTML / CSS / JavaScript，無框架、無建置流程、無後端依賴。
 
-## 專案結構
+## 本機執行
 
-```text
-.
-├─ index.html
-├─ style.css
-├─ app.js
-├─ theme-init.js
-├─ README.md
-└─ .gitignore
+```bash
+git clone https://github.com/bruce-yang-422/english_case_converter.git
+open index.html
 ```
 
-- `index.html`：主頁面
-- `style.css`：介面樣式
-- `app.js`：互動邏輯、格式轉換、字元統計
-- `theme-init.js`：頁面初始主題設定，避免閃爍
+## 授權
 
-## 使用方式
-
-### 本機開啟
-
-直接用瀏覽器開啟 `index.html` 即可使用。
-
-### GitHub Pages
-
-若已啟用 GitHub Pages，專案首頁網址為：
-
-<https://bruce-yang-422.github.io/english_case_converter/>
-
-## 技術說明
-
-- 純 HTML / CSS / JavaScript
-- 無建置流程
-- 無後端依賴
-- 所有功能皆在瀏覽器本機執行
-
-## 備註
-
-- 目前 `README.md` 已加入 GitHub 與 GitHub Pages badge。
-- 若要顯示 `MIT License` badge，建議先補上正式 `LICENSE` 檔案後再加入。
+MIT
