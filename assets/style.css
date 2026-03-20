@@ -48,6 +48,7 @@ html, body {
   font-family: "Oxanium", "Noto Sans TC", sans-serif;
   color: var(--tx);
   background: var(--bg);
+  -webkit-text-size-adjust: 100%;
 }
 
 /* 網格背景 */
@@ -606,5 +607,40 @@ body::after {
   .workspace { padding: 14px; }
   .seo-section { padding: 0 14px 24px; }
   .stats-col { grid-template-columns: 1fr; }
+  .theme-switcher {
+    width: 100%;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+  .theme-btn {
+    flex: 1 1 0;
+    min-width: 0;
+  }
   .theme-btn span { display: none; }
+  .editor-topbar {
+    flex-wrap: wrap;
+    row-gap: 10px;
+  }
+  .editor-fname {
+    flex: 1 1 120px;
+    width: auto;
+    min-width: 0;
+    font-size: 16px;
+  }
+  .fname-ext {
+    font-size: 16px;
+  }
+  .download-btn {
+    margin-left: 0;
+    width: 100%;
+    justify-content: center;
+  }
+  #textInput {
+    min-height: 260px;
+    font-size: 16px;
+    padding: 18px;
+  }
+  #limitInput {
+    font-size: 16px;
+  }
 }
