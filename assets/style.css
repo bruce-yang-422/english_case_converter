@@ -1,4 +1,4 @@
-﻿/* CSS Variables - Dark Theme */
+/* CSS Variables - Dark Theme */
 
 
 :root {
@@ -611,8 +611,39 @@ body::after {
 
 
 @media (max-width: 860px) {
-  .workspace { grid-template-columns: 1fr; }
-  .stats-col { position: static; display: grid; grid-template-columns: 1fr 1fr; }
+  .workspace {
+    display: block;
+    padding: 14px;
+  }
+  .editor-col,
+  .editor-wrap,
+  .toolbar,
+  .stats-col,
+  .panel-section {
+    width: 100%;
+    max-width: 100%;
+  }
+  .toolbar {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+    padding: 0 0 12px;
+    overflow: hidden;
+  }
+  .chip {
+    width: 100%;
+    min-width: 0;
+    justify-content: center;
+    padding: 10px 12px;
+    white-space: normal;
+    text-align: center;
+  }
+  .stats-col {
+    position: static;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin-top: 14px;
+  }
 }
 @media (max-width: 600px) {
   .header-inner {
@@ -620,7 +651,6 @@ body::after {
     gap: 16px;
     padding: 18px 14px 16px;
   }
-  .workspace { padding: 14px; }
   .seo-section { padding: 0 14px 24px; }
   .stats-col { grid-template-columns: 1fr; }
   .badge {
@@ -644,21 +674,6 @@ body::after {
     min-width: 0;
   }
   .theme-btn span { display: none; }
-  .toolbar {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 8px;
-    padding: 0 0 12px;
-    overflow-x: visible;
-  }
-  .chip {
-    width: 100%;
-    min-width: 0;
-    justify-content: center;
-    padding: 10px 12px;
-    white-space: normal;
-    text-align: center;
-  }
   .editor-topbar {
     flex-wrap: wrap;
     row-gap: 10px;
@@ -716,7 +731,3 @@ body::after {
     margin-left: 0;
   }
 }
-
-
-
-
