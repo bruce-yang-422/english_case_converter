@@ -1,6 +1,6 @@
-﻿/* ????????????????????????????????????????
-   CSS 霈 ??瘛梯嚗?閮哨?
-   ???????????????????????????????????????? */
+﻿/* CSS Variables - Dark Theme */
+
+
 :root {
   --bg:    #07090f;
   --surf:  #0c1018;
@@ -18,9 +18,9 @@
   --glow2: rgba(0,210,170,0.07);
 }
 
-/* ????????????????????????????????????????
-   CSS 霈 ??瘛箄
-   ???????????????????????????????????????? */
+/* CSS Variables - Light Theme */
+
+
 [data-mode="light"] {
   --bg:    #edf1f8;
   --surf:  #ffffff;
@@ -38,9 +38,9 @@
   --glow2: rgba(0,130,115,0.05);
 }
 
-/* ????????????????????????????????????????
-   Base
-   ???????????????????????????????????????? */
+/* Base */
+
+
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 html, body {
@@ -54,7 +54,7 @@ html, body {
   overflow-x: hidden;
 }
 
-/* 蝬脫? */
+/* Grid background */
 body::before {
   content: "";
   position: fixed; inset: 0; pointer-events: none; z-index: 0;
@@ -64,7 +64,7 @@ body::before {
   background-size: 48px 48px;
 }
 
-/* ??? */
+/* Top glow */
 body::after {
   content: "";
   position: fixed; top: -200px; left: 50%; transform: translateX(-50%);
@@ -84,9 +84,9 @@ body::after {
   overflow-x: clip;
 }
 
-/* ????????????????????????????????????????
-   SITE HEADER
-   ???????????????????????????????????????? */
+/* Site Header */
+
+
 .site-header {
   border-bottom: 1px solid var(--bdr);
   background: rgba(7,9,15,0.85);
@@ -189,9 +189,9 @@ body::after {
   color: var(--ac);
 }
 
-/* ????????????????????????????????????????
-   MAIN LAYOUT
-   ???????????????????????????????????????? */
+/* Main Layout */
+
+
 .workspace {
   flex: 1;
   display: grid;
@@ -205,7 +205,7 @@ body::after {
   min-width: 0;
 }
 
-/* ?? LEFT: editor ?? */
+/* Left: editor */
 .editor-col { display: flex; flex-direction: column; gap: 0; min-width: 0; }
 
 .editor-wrap {
@@ -274,7 +274,7 @@ body::after {
 .download-btn:hover { color: var(--ac); border-color: var(--bdr2); }
 .download-btn:active { opacity: 0.75; }
 
-/* Toolbar嚗蝡 editor-wrap 憭? */
+/* Toolbar */
 .toolbar {
   display: flex; align-items: center;
   flex-wrap: wrap;
@@ -287,7 +287,7 @@ body::after {
 }
 .toolbar::-webkit-scrollbar { display: none; }
 
-/* macOS 憸冽?? ??撖血??嚗???潛? */
+/* Toolbar buttons */
 .chip {
   display: inline-flex; align-items: center; gap: 7px;
   padding: 7px 15px;
@@ -347,7 +347,7 @@ body::after {
 #textInput::-webkit-scrollbar { width: 5px; }
 #textInput::-webkit-scrollbar-thumb { background: var(--bdr2); border-radius: 3px; }
 
-/* Editor footer (clear / copy) */
+/* Editor footer */
 .editor-footer {
   display: flex; align-items: center;
   gap: 8px;
@@ -378,14 +378,14 @@ body::after {
 [data-mode="light"] .act-btn:hover { background: #f2f2f2; }
 .act-btn:active { transform: scale(0.97); box-shadow: 0 1px 2px rgba(0,0,0,0.2), inset 0 1px 3px rgba(0,0,0,0.15); }
 
-/* ?? RIGHT: stats panel ?? */
+/* Right: stats panel */
 .stats-col {
   display: flex; flex-direction: column; gap: 10px;
   position: sticky; top: 24px;
   min-width: 0;
 }
 
-/* macOS 閬??∠? */
+/* Stats cards */
 .panel-section {
   background: var(--surf2);
   border: 1px solid var(--bdr2);
@@ -399,7 +399,7 @@ body::after {
   box-shadow: 0 2px 8px rgba(0,0,0,0.10), inset 0 1px 0 rgba(255,255,255,0.9);
 }
 
-/* macOS 閬?璅???*/
+/* Stats card header */
 .panel-header {
   padding: 8px 14px;
   background: var(--surf3);
@@ -420,7 +420,7 @@ body::after {
   opacity: 0.8;
 }
 
-/* stat rows */
+/* Stat rows */
 .stat-rows { padding: 2px 0; }
 .srow {
   display: flex; align-items: center;
@@ -442,7 +442,7 @@ body::after {
 .srow-val.accent { color: var(--ac); }
 .srow-val.over   { color: var(--red) !important; }
 
-/* limit big display */
+/* Limit big display */
 .limit-big-wrap {
   padding: 14px 16px;
   display: flex; flex-direction: column;
@@ -458,7 +458,7 @@ body::after {
 .limit-big.over { color: var(--red); }
 .limit-sub { font-size: 11px; color: var(--tx2); text-align: center; }
 
-/* limit input ??macOS text field */
+/* Limit input */
 .limit-input-row {
   padding: 10px 12px;
   border-top: 1px solid var(--bdr);
@@ -488,7 +488,7 @@ body::after {
 }
 #limitInput::placeholder { color: var(--tx3); font-size: 11px; }
 
-/* status */
+/* Status */
 .status-body {
   padding: 14px;
   display: flex; align-items: center; gap: 12px;
@@ -498,16 +498,16 @@ body::after {
 .status-text { font-size: 14px; font-weight: 700; color: var(--tx); }
 .status-hint { font-size: 11px; color: var(--tx3); margin-top: 2px; }
 
-/* ?? number flash ?? */
+/* Number flash */
 @keyframes numflash {
   0%   { opacity: 0.3; transform: scale(0.88); }
   100% { opacity: 1;   transform: scale(1); }
 }
 .flash { animation: numflash 0.16s ease-out both; }
 
-/* ????????????????????????????????????????
-   SEO SECTION
-   ???????????????????????????????????????? */
+/* SEO Section */
+
+
 .seo-section {
   max-width: 1280px;
   width: 100%;
@@ -553,7 +553,7 @@ body::after {
 }
 .seo-section.collapsed .seo-chevron { transform: rotate(-90deg); }
 
-/* ?嗅?? */
+/* Collapse animation */
 .seo-body {
   display: grid;
   grid-template-rows: 1fr;
@@ -607,9 +607,9 @@ body::after {
   color: var(--ac);
 }
 
-/* ????????????????????????????????????????
-   Responsive
-   ???????????????????????????????????????? */
+/* Responsive */
+
+
 @media (max-width: 860px) {
   .workspace { grid-template-columns: 1fr; }
   .stats-col { position: static; display: grid; grid-template-columns: 1fr 1fr; }
@@ -716,6 +716,7 @@ body::after {
     margin-left: 0;
   }
 }
+
 
 
 
