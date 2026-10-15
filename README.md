@@ -23,7 +23,7 @@
 - 總字元、非空白字元、英文單字數、行數
 - 半形 / 全形字元個別計算
 - 加權字元數（全形 × 2）並支援自訂上限即時判定
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+
 ## 本機執行
 
 ```bash
